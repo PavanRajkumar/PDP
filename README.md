@@ -2,6 +2,7 @@
 Clone repository and cd into it
 
 cd <clone directory>
+  
 $ python3 -m venv venv
 
 On Windows:
