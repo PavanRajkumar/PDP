@@ -1,24 +1,8 @@
-# Parkinson-s-Disease-detection
+# PDP - Parkinson's Disease Prediction
+
+Jira Board - https://back-bench-kool.atlassian.net/jira/software/projects/PDP/boards/1
+
 Clone repository and cd into it
-
-cd <clone directory>
-  
-$ python3 -m venv venv
-
-On Windows:
-$ py -3 -m venv venv
-
-If you needed to install virtualenv because you are using Python 2, use the following command instead:
-$ python2 -m virtualenv venv
-
-On Windows:
-> \Python27\Scripts\virtualenv.exe venv
-
-Activate Virtual Environment
-$ . venv/bin/activate
-
-On Windows:
-> venv\Scripts\activate
 
 Install flask 
 $ pip install Flask
