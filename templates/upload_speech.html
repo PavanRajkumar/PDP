@@ -1,16 +1,45 @@
 <html>
+   <head>
+        <link rel= "stylesheet" type= "text/css" href= "{{url_for('static', filename='styles/main.css')}}">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+        
+
+        <title>Upload new file</title>
+    </head>
    <body>
       <div align="center">
-         <h1>Upload your speech sample!</h1>
-         <form method = "POST" enctype = "multipart/form-data">
-            <input type = "file" name = "file" />
-            <br><input type = "number" name = "num1" />
-            <br><input type = "number" name = "num2" />
-            <br><input type = "number" name = "num3" />
-            <br><input type = "number" name = "num4" />
-            <br><input type = "number" name = "num5" />
-            <br><input type = "submit"/>
-         </form>
+         <div class="transparent_box">
+            <h1>Upload your speech sample!</h1>
+         </div>
+          <br>
+         
+         <div class="align_form2">
+            <form method = "POST" enctype = "multipart/form-data">
+               <div class="mb-3">
+                  <input class="form-control" name="speech_file" type="file" id="formFile">
+               </div>
+               <div class="row">
+                  <div class="col">
+                     <input type="number" class="form-control" placeholder="1st Number" name = "num1" >
+                  </div>
+                  <div class="col">
+                     <input type="number" class="form-control" placeholder="2nd Number" name = "num2">
+                  </div>
+                  <div class="col">
+                     <input type="number" class="form-control" placeholder="3rd Number" name = "num3">
+                  </div>
+                  <div class="col">
+                     <input type="number" class="form-control" placeholder="4th Number" name = "num4">
+                  </div>
+                  <div class="col">
+                     <input type="number" class="form-control" placeholder="5th Number" name = "num5">
+                  </div>
+               </div>
+            
+               <br>
+               <input class="btn btn-primary" type=submit value="Upload"/>
+            </form>
+         </div>
       </div>
    </body>
 </html>

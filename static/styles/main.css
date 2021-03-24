@@ -3,7 +3,7 @@ body{
   background-size: cover;
 }
 
-div.transbox {
+div.transparent_box {
   margin: 10px;
   background-color: #ffffff;
   border: 2px solid black;
@@ -11,8 +11,17 @@ div.transbox {
   width: 90%;
 }
 
-div.transbox h1 {
+div.transparent_box h1 {
   margin: 3%;
   font-weight: bold;
   color: #000000;
+}
+
+div.align_form1{
+	margin-left: 25%;
+	
+}
+div.align_form2{
+	margin-left: 10px;
+	margin-right: 10px;
 }
