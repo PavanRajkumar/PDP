@@ -5,8 +5,7 @@ import sys
 from flask import Flask, flash, request, redirect, url_for, session
 from flask import send_from_directory, render_template, jsonify
 from werkzeug.utils import secure_filename
-
-
+from functions.datscan_predict import datscan_predict
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = './files/'
@@ -53,6 +52,19 @@ def upload_datscan():
             file_path = file.save(os.path.join("./files/datscans", filename))
             return redirect(url_for('upload_datscan', filename=filename))
     return render_template('upload_datscan.html')
+
+
+@app.route('/datscan_predict', methods=['GET', 'POST'])
+def predict_datscan():
+    if request.method == "POST":
+        file_name = request.form['file_name']
+        file_path = os.path.join("./files/datscans/", file_name)
+        hasPD = datscan_predict(file_path)
+        print(hasPD)
+        return render_template('datscan_output.html', hasPD = hasPD)
+    elif request.method == 'GET':
+        scans = os.listdir('./files/datscans')
+        return render_template('datscan_form.html',scans=scans)
 
 
 if __name__ == '__main__':

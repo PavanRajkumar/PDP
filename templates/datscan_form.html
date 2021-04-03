@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div style="width:50%; margin:0 auto;">
+        <form action="{{ url_for('predict_datscan') }}" method="post">
+            <label for="file_name"><h2>Choose uploaded scan:</h2></label><br>
+            <select id="file_name" name="file_name">
+                <option value="" disabled selected hidden>Select file</option>
+                {% for file in scans %}
+                <option value="{{ file }}">{{ file }}</option>
+                {% endfor %}
+            </select>
+            <input type="submit">
+        </form>
+    </div>
+</body>
+</html>
