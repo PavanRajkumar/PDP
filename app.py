@@ -2,9 +2,10 @@ import numpy as np
 import os
 import pandas
 import sys
-from flask import Flask, flash, request, redirect, url_for
+from flask import Flask, flash, request, redirect, url_for, session
 from flask import send_from_directory, render_template, jsonify
 from werkzeug.utils import secure_filename
+
 
 
 app = Flask(__name__)
@@ -49,10 +50,10 @@ def upload_datscan():
         if file:
             filename = secure_filename(file.filename)
             global file_path
-            file_path = file.save(os.path.join("./files", filename))
+            file_path = file.save(os.path.join("./files/datscans", filename))
             return redirect(url_for('upload_datscan', filename=filename))
     return render_template('upload_datscan.html')
 
 
 if __name__ == '__main__':
-   app.run(debug = True)
+    app.run(debug = True)
