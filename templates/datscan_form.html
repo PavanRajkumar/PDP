@@ -1,0 +1,10 @@
+<form action="{{ url_for('predict_datscan') }}" method="post">
+    <label for="file_name">File Name:</label><br>
+    <select id="file_name" name="file_name">
+        <option value="" disabled selected hidden>Select file</option>
+        {% for file in scans %}
+        <option value="{{ file }}">{{ file }}</option>
+        {% endfor %}
+    </select>
+    <input type="submit">
+</form>
