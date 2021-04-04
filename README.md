@@ -30,3 +30,9 @@ Folder containing sample Datscan images to upload - https://drive.google.com/dri
    python app.py
    ```
    
+
+
+# Speech Diagnosis
+
+## UML Diagram (Rudimentary)
+
