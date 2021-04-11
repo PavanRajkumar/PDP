@@ -47,3 +47,4 @@ def datscan_predict(datscan_sample):
         return False
     else:
         return True
+
