@@ -37,3 +37,6 @@ Folder containing sample Datscan images to upload - https://drive.google.com/dri
 ## UML Diagram (Rudimentary)
 
 ![UML Diagram](/speech_diagnosis/Speech%20UML%20(rudimentary).jpg "Parkinson's Speech Diagnosis UML ")
+
+#Next steps - 12
+
