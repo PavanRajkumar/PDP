@@ -136,7 +136,7 @@ if __name__ == "__main__":
     predict_models = []
     res = []
 
-    available_models = ["nn", "RF", "knn", "SVC"]
+    available_models = ["NN", "RF", "knn", "SVC"]
     for model in available_models:
         predict_models.append(Predict(model))
 
