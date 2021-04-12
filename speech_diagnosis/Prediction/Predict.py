@@ -10,24 +10,50 @@ class Predict:
 
 
     location = {
-        "NN": {"weights": "..//ML_Models//NN//Speech_nn.h5", "architecture": "..//ML_Models//NN//model_nn.json",
-               "Scalar": "..//ML_Models//NN//scalar.pkl"},
-        "KNN": "",
-        "RF": "",
-        "SVC": ""
+        "Scalar": "..//ML_Models//Scalar//scalar.pkl",
+        "NN": {"weights": "..//ML_Models//NN//Speech_nn.h5", "architecture": "..//ML_Models//NN//model_nn.json"},
+        "KNN": {"model": "..//ML_Models//KNN//KNN_model.pkl"},
+        "RF": {"model": "..//ML_Models//RF//RF_model.pkl"},
+        "SVC": {"model": "..//ML_Models//SVC//SVC_model.pkl"}
     }
 
 
     def __init__(self,model_name="NN"):
 
-        self.model_name = model_name
+        self.model_name = model_name.upper()
         self.model = None
         self.scalar = None
-        self.model_load_success = self.load_model_from_files(self.location[self.model_name])
+
+        self.load_scalar()
+
+        if self.model_name=="NN":
+            self.model_load_success = self.load_nn_model(self.location[self.model_name])
+        elif self.model_name.upper() in ["RF", "SVC", "KNN"]:
+            self.model_load_success = self.load_other_models(self.location[self.model_name])
 
 
+    def load_scalar(self):
 
-    def load_model_from_files(self, model_location):
+        try:
+            with open(self.location["Scalar"], "rb") as scalar_file:
+                self.scalar = pickle.load(scalar_file)
+        except Exception as e:
+            print(e)
+            return False
+        return  True
+
+
+    def load_other_models(self, model_location):
+        try:
+            with open(model_location["model"], "rb") as model_file:
+                self.model = pickle.load(model_file)
+        except Exception as e:
+            print(e)
+            return False
+        return True
+
+
+    def load_nn_model(self, model_location):
 
         try:
 
@@ -36,9 +62,6 @@ class Predict:
 
             self.model = model_from_json(loaded_model_json)
             self.model.load_weights(model_location["weights"])
-
-            with open(model_location["Scalar"], "rb") as scalar_file:
-                self.scalar = pickle.load(scalar_file)
 
         except Exception as e:
             print(e)
@@ -97,11 +120,9 @@ class Predict:
         pass
 
 
-
-
 if __name__ == "__main__":
 
-    predict = Predict("NN")
+    # predict = Predict("NN")
     data = [[1.488000e+00, 9.021300e-05, 9.000000e-01, 7.940000e-01,
         2.699000e+00, 8.334000e+00, 7.790000e-01, 4.517000e+00,
         4.609000e+00, 6.802000e+00, 1.355100e+01, 9.059050e-01,
@@ -110,6 +131,19 @@ if __name__ == "__main__":
         1.590000e+02, 6.064725e-03, 4.162760e-04, 0.000000e+00,
         0.000000e+00, 0.000000e+00]]
 
-    res = predict.get_prediction(data)
-    print(res)
+    # res = predict.get_prediction(data)
+
+    predict_models = []
+    res = []
+
+    available_models = ["nn", "RF", "knn", "SVC"]
+    for model in available_models:
+        predict_models.append(Predict(model))
+
+    for pred_mod in predict_models:
+        res.append(pred_mod.get_prediction(data))
+
+    for i in range(len(res)):
+        print(res[i], available_models[i])
+
 

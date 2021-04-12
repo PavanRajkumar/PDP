@@ -1,7 +1,7 @@
 
 class Audio:
 
-    def __int__(self):
+    def __init__(self):
 
         audio = None
         signals = None
