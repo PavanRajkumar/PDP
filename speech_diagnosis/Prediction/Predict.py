@@ -145,5 +145,3 @@ if __name__ == "__main__":
 
     for i in range(len(res)):
         print(res[i], available_models[i])
-
-
