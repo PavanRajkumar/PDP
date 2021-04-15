@@ -3,3 +3,5 @@ main.py
 .idea/
 src/__pycache__/
 data/
+Audio_Processing/__pycache__/
+Prediction/__pycache__/
