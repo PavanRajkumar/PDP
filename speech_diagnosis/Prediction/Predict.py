@@ -4,6 +4,7 @@ import json
 import numpy as np
 import pickle
 import os
+from sklearn.preprocessing import MinMaxScaler
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
 class Predict:
@@ -145,5 +146,3 @@ if __name__ == "__main__":
 
     for i in range(len(res)):
         print(res[i], available_models[i])
-
-
