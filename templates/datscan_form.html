@@ -47,7 +47,7 @@
                   <a class="nav-link active" aria-current="page" href="../">Home</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" aria-current="page" href="{{ url_for('predict_datscan')}}">Input</a>
+                  <a class="nav-link" aria-current="page" href="{{ url_for('form_upload')}}">Input</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" aria-current="page" href="#">Results</a>
@@ -69,7 +69,7 @@
         <br/>
         <h1>Enter Details</h1></div>
     <div class = "jumbotron">
-        <form action="{{ url_for('predict_datscan') }}" method="post"  enctype=multipart/form-data>
+        <form action="{{ url_for('form_upload') }}" method="post"  enctype=multipart/form-data>
             <div class = "row">
                 <div class = "col-md-6">
                     <div class="form-group">
