@@ -16,6 +16,10 @@ app.config['UPLOAD_FOLDER'] = './files/'
 def index():
     return render_template('index.html')
 
+@app.route('/history')
+def history():
+    return render_template('history.html')
+
 
 @app.route('/uploade_speech', methods = ['GET', 'POST'])
 def upload_speech():
