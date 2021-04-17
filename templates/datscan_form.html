@@ -44,10 +44,10 @@
             <div class="collapse navbar-collapse" id="navbarCollapse">
               <ul class="navbar-nav me-auto mb-2 mb-md-0">
                 <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" href="../">Home</a>
+                  <a class="nav-link " aria-current="page" href="../">Home</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" aria-current="page" href="{{ url_for('form_upload')}}">Input</a>
+                  <a class="nav-link active" aria-current="page" href="{{ url_for('form_upload')}}">Input</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" aria-current="page" href="#">Results</a>
@@ -85,13 +85,13 @@
                 </div>
             </div>
             <div class = "row">
-                <div class = "col-md-4">
+                <div class = "col-md-6">
                     <div class="form-group">
                         <label for="age">Age</label>
                         <input type="number" name="age" class="form-control" id="age" >
                     </div>
                 </div>
-                <div class = "col-md-4">
+                <div class = "col-md-6">
                     <div class="form-group">
                         <label for="gender">Gender</label>
                         <select class="form-control" name="gender" id="gender">
@@ -102,13 +102,7 @@
                         </select>
                       </div>
                 </div>
-                <div class = "col-md-4">
-                    <div class="form-group">
-                        <label for="city">City</label>
-                        <input type="text" class="form-control" id="city" name="city" placeholder="Enter city">
-                    </div>
-                </div>
-
+              
             </div>
             <div class = "row">
                 <div class = "col-md-6">

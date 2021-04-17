@@ -61,7 +61,7 @@ def form_upload():
         last = request.form['LastName']
         age = request.form['age']
         gender = request.form['gender']
-        city = request.form['city']
+        
         if 'file' not in request.files:
             flash('No file part')
             return redirect(request.url)
@@ -82,7 +82,7 @@ def form_upload():
             'last' : last,
             'age' : age,
             'gender' : gender,
-            'city' : city,
+            
             'hasPDdatscan' : hasPDdatscan,
         }
         return render_template('datscan_output.html',data = data)
