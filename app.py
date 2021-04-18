@@ -58,15 +58,14 @@ def upload_datscan():
             return redirect(url_for('upload_datscan', filename=filename))
     return render_template('upload_datscan.html')
 
-
-@app.route('/datscan_predict', methods=['GET', 'POST'])
-def predict_datscan():
+@app.route('/form_upload', methods=['GET', 'POST'])
+def form_upload():
     if request.method == "POST":
         first = request.form['FirstName']
         last = request.form['LastName']
         age = request.form['age']
         gender = request.form['gender']
-        city = request.form['city']
+        
         if 'file' not in request.files:
             flash('No file part')
             return redirect(request.url)
@@ -80,23 +79,29 @@ def predict_datscan():
             file_path = file.save(os.path.join("./files/datscans", filename))
 
         file_path = os.path.join("./files/datscans/", filename)
-        hasPD = datscan_predict(file_path)
-        #datscan_explain(file_path)
-        print(hasPD)
+        hasPDdatscan = predict_datscan(file_path)
         
         data = {
-            'hasPD' : hasPD ,
             'first' : first ,
             'last' : last,
             'age' : age,
             'gender' : gender,
-            'city' : city,
+            
+            'hasPDdatscan' : hasPDdatscan,
         }
-        return render_template('datscan_output.html', data = data )
+        return render_template('datscan_output.html',data = data)
     elif request.method == 'GET':
         scans = os.listdir('./files/datscans')
         return render_template('datscan_form.html',scans=scans)
 
+
+@app.route('/datscan_predict', methods=['GET', 'POST'])
+def predict_datscan(file_path):
+    
+        hasPD = datscan_predict(file_path)
+        #datscan_explain(file_path)
+        print(hasPD)      
+        return hasPD
 
 
 if __name__ == '__main__':

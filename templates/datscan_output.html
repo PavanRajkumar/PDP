@@ -44,13 +44,13 @@
             <div class="collapse navbar-collapse" id="navbarCollapse">
               <ul class="navbar-nav me-auto mb-2 mb-md-0">
                 <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" href="../">Home</a>
+                  <a class="nav-link " aria-current="page" href="../">Home</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" aria-current="page" href="{{ url_for('predict_datscan')}}">Input</a>
+                  <a class="nav-link" aria-current="page" href="{{ url_for('form_upload')}}">Input</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" aria-current="page" href="#">Results</a>
+                  <a class="nav-link active" aria-current="page" href="#">Results</a>
                 </li>
 
               </ul>
@@ -83,11 +83,8 @@
                         <tr>
                             <td><h5>Gender : {{data.gender}}</h5></td>
                         </tr>
-                        <tr>
-                            <td><h5>City : {{data.city}} </h5></td>
                         
-                        </tr>
-                        {% if data.hasPD == True %}
+                        {% if data.hasPDdatscan == True %}
                             <tr>
                                 <th><h4>Parkinson's Disease Prediction : </h4></th> <th style="color: red;"><h4>POSITIVE</h4></th>
                             </tr>
@@ -101,7 +98,7 @@
                 </div>
                 <div class = "col-md-6">
                     <center>
-                    {% if data.hasPD == True %}
+                    {% if data.hasPDdatscan == True %}
                         <img src = "./static/images/positive.jpg" style="border : 2px red dotted "/>
                     {% else %}
                         <img src = "./static/images/negative.jpg" style="border : 2px green dotted "/>
