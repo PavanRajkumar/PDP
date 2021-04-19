@@ -5,7 +5,7 @@ from flask import send_from_directory, render_template, jsonify
 from werkzeug.utils import secure_filename
 from functions.datscan_predict import datscan_predict
 from functions.datscan_explain import datscan_explain
-from functions.db_functions import writeToDB
+from functions.db_functions import writeToDB,readFromDB
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = './files/'
@@ -18,7 +18,8 @@ def index():
 
 @app.route('/history')
 def history():
-    return render_template('history.html')
+    details=readFromDB()
+    return render_template('history.html',details = details)
 
 
 @app.route('/uploade_speech', methods = ['GET', 'POST'])
