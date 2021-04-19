@@ -16,6 +16,7 @@ app.config['UPLOAD_FOLDER'] = './files/'
 def index():
     return render_template('index.html')
 
+
 @app.route('/history')
 def history():
     return render_template('history.html')
@@ -58,6 +59,7 @@ def upload_datscan():
             return redirect(url_for('upload_datscan', filename=filename))
     return render_template('upload_datscan.html')
 
+
 @app.route('/form_upload', methods=['GET', 'POST'])
 def form_upload():
     if request.method == "POST":
@@ -79,29 +81,21 @@ def form_upload():
             file_path = file.save(os.path.join("./files/datscans", filename))
 
         file_path = os.path.join("./files/datscans/", filename)
-        hasPDdatscan = predict_datscan(file_path)
+        hasPDdatscan = datscan_predict(file_path)
+        #datscan_explain(file_path)
         
         data = {
             'first' : first ,
             'last' : last,
             'age' : age,
             'gender' : gender,
-            
             'hasPDdatscan' : hasPDdatscan,
         }
+
         return render_template('datscan_output.html',data = data)
     elif request.method == 'GET':
         scans = os.listdir('./files/datscans')
         return render_template('datscan_form.html',scans=scans)
-
-
-@app.route('/datscan_predict', methods=['GET', 'POST'])
-def predict_datscan(file_path):
-    
-        hasPD = datscan_predict(file_path)
-        #datscan_explain(file_path)
-        print(hasPD)      
-        return hasPD
 
 
 if __name__ == '__main__':
