@@ -1,12 +1,11 @@
 import numpy as np
-import os
-import pandas
-import sys
+import os, pandas, sys
 from flask import Flask, flash, request, redirect, url_for, session
 from flask import send_from_directory, render_template, jsonify
 from werkzeug.utils import secure_filename
 from functions.datscan_predict import datscan_predict
 from functions.datscan_explain import datscan_explain
+from functions.db_functions import writeToDB
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = './files/'
@@ -66,12 +65,15 @@ def form_upload():
         #datscan_explain(file_path)
         
         data = {
-            'first' : first ,
+            'first' : first,
             'last' : last,
             'age' : age,
             'gender' : gender,
             'hasPDdatscan' : hasPDdatscan,
+            'datscanPath' : file_path
         }
+
+        writeToDB(data)
 
         return render_template('datscan_output.html',data = data)
     elif request.method == 'GET':
