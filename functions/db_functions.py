@@ -7,3 +7,7 @@ records = db.Predictions
 def writeToDB(data):
     records.insert_one(data)
     return
+
+def readFromDB():
+    data=list(records.find())
+    return data
