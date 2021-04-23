@@ -7,17 +7,16 @@ import os
 from sklearn.preprocessing import MinMaxScaler
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
+
 class Predict:
 
-
     location = {
-        "Scalar": "..//ML_Models//Scalar//scalar.pkl",
-        "NN": {"weights": "..//ML_Models//NN//Speech_nn.h5", "architecture": "..//ML_Models//NN//model_nn.json"},
-        "KNN": {"model": "..//ML_Models//KNN//KNN_model.pkl"},
-        "RF": {"model": "..//ML_Models//RF//RF_model.pkl"},
-        "SVC": {"model": "..//ML_Models//SVC//SVC_model.pkl"}
+        "Scalar": "D:/Projects/Final-Year-Project/PDP/speech_diagnosis/ML_Models/Scalar/scalar.pkl",
+        "NN": {"weights": "D:/Projects/Final-Year-Project/PDP/speech_diagnosis/ML_Models/NN/Speech_nn.h5", "architecture": "D:/Projects/Final-Year-Project/PDP/speech_diagnosis/ML_Models/NN/model_nn.json"},
+        "KNN": {"model": "D:/Projects/Final-Year-Project/PDP/speech_diagnosis/ML_Models/KNN/KNN_model.pkl"},
+        "RF": {"model": "D:/Projects/Final-Year-Project/PDP/speech_diagnosis/ML_Models/RF/RF_model.pkl"},
+        "SVC": {"model": "D:/Projects/Final-Year-Project/PDP/speech_diagnosis/ML_Models/SVC/SVC_model.pkl"}
     }
-
 
     def __init__(self,model_name="NN"):
 
@@ -28,7 +27,7 @@ class Predict:
         self.load_scalar()
 
         if self.model_name=="NN":
-            self.model_load_success = self.load_nn_model(self.location[self.model_name])
+            self.model_load_success = self.load_nn_model(model_location=self.location[self.model_name])
         elif self.model_name.upper() in ["RF", "SVC", "KNN"]:
             self.model_load_success = self.load_other_models(self.location[self.model_name])
 
@@ -57,13 +56,15 @@ class Predict:
     def load_nn_model(self, model_location):
 
         try:
-
-            with open(model_location["architecture"]) as json_file:
+            print("LOAD_NN", model_location)
+            with open(model_location["architecture"], "r") as json_file:
                 loaded_model_json =  json_file.read()
+
+            print("AFTER")
 
             self.model = model_from_json(loaded_model_json)
             self.model.load_weights(model_location["weights"])
-
+            print("HELLO   ", self.model)
         except Exception as e:
             print(e)
             return False
@@ -92,7 +93,7 @@ class Predict:
     def get_prediction(self, data):
 
         if not self.model_load_success:
-            raise Exception("Model did not load successfully")
+            raise Exception("Model did not load successfully", self.model_load_success)
 
         data = np.array(data)
 
