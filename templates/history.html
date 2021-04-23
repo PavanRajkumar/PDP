@@ -81,33 +81,21 @@
       <td>Age</td>
       <td>DatScan Analysis</td>
       <td>Speech Analysis</td>
+      <td>DatScan Image</td>
     </tr>
   </thead>
   <tbody>
+    {% for i in details %}
     <tr>
-      <td>abcd</td>
-      <td>xyz</td>
-      <td>m</td>
-      <td>72</td>
+      <td>{{i.first}}</td>
+      <td>{{i.last}}</td>
+      <td>{{i.age}}</td>
+      <td>{{i.gender}}</td>
+      <td>{{i.hasPDdatscan}}</td>
       <td>Positive</td>
-      <td>Positive</td>
+      <td><img src = {{i.datscanPath}} style="border : 2px red dotted "/></td>
     </tr>
-    <tr>
-      <td>adscsv</td>
-      <td>afae</td>
-      <td>F</td>
-      <td>21</td>
-      <td>Negative</td>
-      <td>Negative</td>
-    </tr>
-    <tr>
-      <td>aghcd</td>
-      <td>xret</td>
-      <td>W</td>
-      <td>82</td>
-      <td>Positive</td>
-      <td>Positive</td>
-    </tr>
+    {% endfor %}
   </tbody>
 </table>
     </div>
