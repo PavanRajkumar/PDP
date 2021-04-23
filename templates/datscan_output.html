@@ -86,14 +86,24 @@
                         
                         {% if data.hasPDdatscan == True %}
                             <tr>
-                                <th><h4>Parkinson's Disease Prediction : </h4></th> <th style="color: red;"><h4>POSITIVE</h4></th>
+                                <th><h4>Parkinson's Disease Prediction (DatSCAN) : </h4></th> <th style="color: red;"><h4>POSITIVE</h4></th>
                             </tr>
-                        {% else %}
+                        {% elif data.hasPDdatscan == False %}
                             <tr>
-                                <th><h4>Parkinson's Disease Prediction : </h4></th> <th style="color: green;"><h4>NEGATIVE</h4></th>
+                                <th><h4>Parkinson's Disease Prediction (DatSCAN): </h4></th> <th style="color: green;"><h4>NEGATIVE</h4></th>
                             </tr>
-                           
                         {% endif %}
+
+                        {% if data.hasPDspeech.Diagnosis == True %}
+                            <tr>
+                                <th><h4>Parkinson's Disease Prediction (Speech): </h4></th> <th style="color: red;"><h4>POSITIVE {{data.hasPDspeech.probability}}</h4></th>
+                            </tr>
+                        {% elif data.hasPDspeech.Diagnosis == False %}
+                            <tr>
+                                <th><h4>Parkinson's Disease Prediction (Speech): </h4></th> <th style="color: green;"><h4>NEGATIVE {{data.hasPDspeech.probability}}</h4></th>
+                            </tr>
+                        {% endif %}
+
                     </table>
                 </div>
                 <div class = "col-md-6">
@@ -123,17 +133,6 @@
               </div>
             </div>
           </div>
-
-          
-
-
-        
-        
-        
-        
-        
-        
-        
     </div>
         <hr class="featurette-divider">
     </div>

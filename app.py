@@ -5,7 +5,8 @@ from flask import send_from_directory, render_template, jsonify
 from werkzeug.utils import secure_filename
 from functions.datscan_predict import datscan_predict
 from functions.datscan_explain import datscan_explain
-from functions.db_functions import writeToDB,readFromDB
+from functions.db_functions import writeToDB
+from speech_diagnosis.src.Audio_Controller import Audio_Controller
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = './files/'
@@ -18,8 +19,7 @@ def index():
 
 @app.route('/history')
 def history():
-    details=readFromDB()
-    return render_template('history.html',details = details)
+    return render_template('history.html')
 
 
 @app.route('/uploade_speech', methods = ['GET', 'POST'])
@@ -35,6 +35,7 @@ def upload_speech():
       l = [n1,n2,n3,n4,n5]
       n = np.array(l)
       print(n)
+      print(f)
       str1 = ''.join(l)
       return 'file uploaded successfully' + str1
    elif request.method == 'GET':
@@ -43,44 +44,81 @@ def upload_speech():
 
 @app.route('/form_upload', methods=['GET', 'POST'])
 def form_upload():
+
     if request.method == "POST":
         first = request.form['FirstName']
         last = request.form['LastName']
         age = request.form['age']
         gender = request.form['gender']
-        
-        if 'file' not in request.files:
-            flash('No file part')
-            return redirect(request.url)
-        file = request.files['file']
-        if file.filename == '':
-            flash('No selected file')
-            return redirect(request.url)
-        if file:
-            filename = secure_filename(file.filename)
-            global file_path
-            file_path = file.save(os.path.join("./files/datscans", filename))
 
-        file_path = os.path.join("./files/datscans/", filename)
-        hasPDdatscan = datscan_predict(file_path)
-        #datscan_explain(file_path)
-        
+        file_paths = {'datscan': None, 'speech': None}
+        file_paths = get_file_path(request=request)
+        print("FILE_PATHS",file_paths)
+
+
+        if file_paths['datscan'] != None:
+            hasPDdatscan = datscan_predict(file_paths['datscan'])
+        else:
+            hasPDdatscan = None
+        # datscan_explain(file_path)
+
+        if file_paths.get('speech',None) != None:
+            audio = Audio_Controller(file_paths['speech'])
+            audio.process_audio()
+            hasPDspeech = audio.predict_PD_diagnosis(model_name="RF")
+        else:
+            hasPDspeech = None
+
         data = {
-            'first' : first,
-            'last' : last,
-            'age' : age,
-            'gender' : gender,
-            'hasPDdatscan' : hasPDdatscan,
-            'datscanPath' : file_path
+            'first': first,
+            'last': last,
+            'age': age,
+            'gender': gender,
+            'hasPDdatscan': hasPDdatscan,
+            'datscanPath': file_paths['datscan'],
+            'hasPDspeech': hasPDspeech,
+            'speechPath': file_paths['speech']
         }
 
-        writeToDB(data)
+        # writeToDB(data)
 
-        return render_template('datscan_output.html',data = data)
+        return render_template('datscan_output.html', data=data)
+
     elif request.method == 'GET':
         scans = os.listdir('./files/datscans')
-        return render_template('datscan_form.html',scans=scans)
+        return render_template('datscan_form.html', scans=scans)
+
+
+def get_file_path(request):
+
+    file_paths = {"datscan":None, "speech":None}
+
+    for file_type in file_paths.keys():
+
+        if file_type not in request.files:
+            flash('No file part')
+            return redirect(request.url)
+        file = request.files[file_type]
+
+        if file.filename == '':
+            flash('No selected file')
+            # return redirect(request.url)
+
+        filename = None
+        file_path = None
+
+        if file:
+            filename = secure_filename(file.filename)
+
+            file_path = file.save(os.path.join("./files/{}".format(file_type), filename))
+
+            file_path = os.path.join("/files/{}".format(file_type), filename)
+
+        file_paths[file_type] = file_path
+
+    return file_paths
 
 
 if __name__ == '__main__':
+    app.secret_key = 'super secret key'
     app.run(debug = True)
