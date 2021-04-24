@@ -7,6 +7,8 @@ from functions.datscan_predict import datscan_predict
 from functions.datscan_explain import datscan_explain
 from functions.db_functions import writeToDB
 from speech_diagnosis.src.Audio_Controller import Audio_Controller
+import datetime, pytz
+
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = './files/'
@@ -69,6 +71,8 @@ def form_upload():
         else:
             hasPDspeech = None
 
+        current_time = datetime.datetime.now(pytz.timezone('Asia/Kolkata'))
+
         data = {
             'first': first,
             'last': last,
@@ -77,7 +81,8 @@ def form_upload():
             'hasPDdatscan': hasPDdatscan,
             'datscanPath': file_paths['datscan'],
             'hasPDspeech': hasPDspeech,
-            'speechPath': file_paths['speech']
+            'speechPath': file_paths['speech'],
+            'predictTime': current_time
         }
 
         # writeToDB(data)
