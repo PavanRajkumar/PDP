@@ -90,7 +90,7 @@ def form_upload():
         return render_template('datscan_output.html', data=data)
 
     elif request.method == 'GET':
-        scans = os.listdir('./files/datscans')
+        scans = os.listdir('files/datscan')
         return render_template('datscan_form.html', scans=scans)
 
 
@@ -114,10 +114,9 @@ def get_file_path(request):
 
         if file:
             filename = secure_filename(file.filename)
-
-            file_path = file.save(os.path.join("./files/{}".format(file_type), filename))
-
-            file_path = os.path.join("/files/{}".format(file_type), filename)
+            print("FILENAME", filename)
+            file.save(os.path.join("../PDP/files/{0}/".format(file_type), filename))
+            file_path = os.path.join("../PDP/files/{}".format(file_type), filename)
 
         file_paths[file_type] = file_path
 
