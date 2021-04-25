@@ -109,7 +109,7 @@ class Predict:
 
         diagnosis = (1==predictions_rounded)
 
-        return {"Diagnosis": diagnosis, "probability": float("{0:.2f}".format(prediction*100))}
+        return {"Diagnosis": str(diagnosis), "probability": float("{0:.2f}".format(prediction*100))}
 
 
     def get_PR_curve(self):

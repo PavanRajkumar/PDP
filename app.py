@@ -31,6 +31,7 @@ def history():
 def results():
       id = request.form['id']
       temp=readSingleFromDB(id)
+      print(temp)
       return render_template('results.html',temp = temp)
 
 @app.route('/form_upload', methods=['GET', 'POST'])

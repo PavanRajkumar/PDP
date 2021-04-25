@@ -50,7 +50,7 @@
             <a class="nav-link" aria-current="page" href="../">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="{{ url_for('form_upload')}}">Input</a>
+            <a class="nav-link" aria-current="page" href="{{ url_for('form_upload')}}">Predict</a>
           </li>
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="#">Results</a>
@@ -95,7 +95,7 @@
         <input type="hidden" name="id" value={{i.first}}>
       
       
-      <td><input type="submit" name="sub"></td>
+      <td><input type="submit" name="sub" class = "btn btn-secondary" value="View Report"></td>
       </form>
     </tr>
     {% endfor %}
