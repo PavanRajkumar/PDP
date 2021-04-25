@@ -74,6 +74,7 @@ def form_upload():
             'speechPath': file_paths['speech'],
             'predictTime': current_time
         }
+        print(data)
 
         writeToDB(data)
 

@@ -90,7 +90,7 @@
       <td>{{i.last}}</td>
       <td>{{i.age}}</td>
       <td>{{i.gender}}</td>
-      <td>{{i.predictTime}}</td>
+      <td>{{i.predictTime.strftime("%d/%m/%Y - %H:%M:%S")}}</td>
       <form action="{{ url_for('results') }}" method="post">
         <input type="hidden" name="id" value={{i.first}}>
       
