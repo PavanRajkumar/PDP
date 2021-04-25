@@ -5,10 +5,11 @@ from flask import send_from_directory, render_template, jsonify
 from werkzeug.utils import secure_filename
 from functions.datscan_predict import datscan_predict
 from functions.datscan_explain import datscan_explain
-from functions.db_functions import writeToDB
+from functions.db_functions import writeToDB , readFromDB , readSingleFromDB
 from speech_diagnosis.src.Audio_Controller import Audio_Controller
 import datetime, pytz
 from uuid import uuid4
+
 
 
 app = Flask(__name__)
@@ -22,8 +23,15 @@ def index():
 
 @app.route('/history')
 def history():
-    return render_template('history.html')
+    details=readFromDB()
+    
+    return render_template('history.html',details = details)
 
+@app.route('/results', methods=['GET', 'POST'])
+def results():
+      id = request.form['id']
+      temp=readSingleFromDB(id)
+      return render_template('results.html',temp = temp)
 
 @app.route('/form_upload', methods=['GET', 'POST'])
 def form_upload():
@@ -66,7 +74,7 @@ def form_upload():
             'predictTime': current_time
         }
 
-        # writeToDB(data)
+        writeToDB(data)
 
         return render_template('datscan_output.html', data=data)
 

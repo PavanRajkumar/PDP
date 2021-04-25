@@ -11,3 +11,8 @@ def writeToDB(data):
 def readFromDB():
     data=list(records.find())
     return data
+
+def readSingleFromDB(id):
+    datar=records.find_one({'first': id})
+    print(id)
+    return datar
