@@ -50,7 +50,7 @@
             <a class="nav-link" aria-current="page" href="../">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="{{ url_for('form_upload')}}">Input</a>
+            <a class="nav-link" aria-current="page" href="{{ url_for('form_upload')}}">Predict</a>
           </li>
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="#">Results</a>
@@ -79,9 +79,8 @@
       <td>Last Name</td>
       <td>Gender</td>
       <td>Age</td>
-      <td>DatScan Analysis</td>
-      <td>Speech Analysis</td>
-      <td>DatScan Image</td>
+      <td>Time</td>
+      <td>Action</td>
     </tr>
   </thead>
   <tbody>
@@ -91,9 +90,13 @@
       <td>{{i.last}}</td>
       <td>{{i.age}}</td>
       <td>{{i.gender}}</td>
-      <td>{{i.hasPDdatscan}}</td>
-      <td>Positive</td>
-      <td><img src = {{i.datscanPath}} style="border : 2px red dotted "/></td>
+      <td>{{i.predictTime.strftime("%d/%m/%Y - %H:%M:%S")}}</td>
+      <form action="{{ url_for('results') }}" method="post">
+        <input type="hidden" name="id" value={{i.first}}>
+      
+      
+      <td><input type="submit" name="sub" class = "btn btn-secondary" value="View Report"></td>
+      </form>
     </tr>
     {% endfor %}
   </tbody>

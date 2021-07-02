@@ -32,18 +32,18 @@
           }
     </style>
         <script type="text/javascript">
-
+    
            google.charts.load('current', {'packages':['corechart']});
       google.charts.setOnLoadCallback(drawChart);
-          // Callback that creates and populates a data table,
+          // Callback that creates and populates a data table, 
           // instantiates the pie chart, passes in the data and
           // draws it.
           function drawChart() {
-
+    
             var data = google.visualization.arrayToDataTable([
           ['Prediction', 'Probability'],
-          ['Positive',   {{ data.hasPDspeech.probability}}  ],
-          ['Negative',    1- {{ data.hasPDspeech.probability}}  ],
+          ['Positive',   {{ temp.hasPDspeech.probability}}  ],
+          ['Negative',    1- {{ temp.hasPDspeech.probability}}  ],
 
         ]);
 
@@ -59,13 +59,13 @@
         var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
 
         chart.draw(data, options);
-
+    
 
           }
         </script>
 
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-
+    
 </head>
 <body>
     <header>
@@ -100,7 +100,7 @@
             <div>
                 <br/>
                 <br/>
-
+    
         <h1>Parkinson's Disease Prediction Report</h1>
         <br />
         <div class = "jumbotron">
@@ -108,56 +108,56 @@
                 <div class = "col-md-6">
                     <table>
                         <tr>
-                            <th><h3> Name : {{data.first}} {{data.last}}</h3></th>
+                            <th><h3> Name : {{temp.first}} {{temp.last}}</h3></th>
                         </tr>
                         <tr>
-                            <td><h5>Age : {{data.age}} </h5></td>
+                            <td><h5>Age : {{temp.age}} </h5></td>
                         </tr>
                         <tr>
-                            <td><h5>Gender : {{data.gender}}</h5></td>
+                            <td><h5>Gender : {{temp.gender}}</h5></td>
                         </tr>
                         <tr>
-                          <td><h5>Prediction Date : {{data.predictTime.strftime("%d/%m/%Y")	}}</h5></td>
+                          <td><h5>Prediction Date : {{temp.predictTime.strftime("%d/%m/%Y")	}}</h5></td>
                         </tr>
                         <tr>
-                        <td><h5>Prediction Time : {{data.predictTime.strftime("%H:%M:%S")	}}</h5></td>
+                        <td><h5>Prediction Time : {{temp.predictTime.strftime("%H:%M:%S")	}}</h5></td>
                       </tr>
-
-
+                        
+                       
                     </table>
                 </div>
                 <div class = "col-md-6">
                     <center>
-                      {% if data.hasPDdatscan == True %}
-
+                      {% if temp.hasPDdatscan == True %}
+                      
                           <h4> Prediction from Brain Scans : </h4><h4 style="color: red;">POSITIVE</h4>
-
-                  {% elif data.hasPDdatscan == False %}
-
+                     
+                  {% elif temp.hasPDdatscan == False %}
+               
                           <h4> Prediction from Brain Scans : </h4><h4 style="color: green;">NEGATIVE</h4>
-
+                      
                   {% endif %}
 
-                  {% if data.hasPDspeech.Diagnosis == "True" %}
-
+                  {% if temp.hasPDspeech.Diagnosis == "True" %}
+                     
                          <h4>Prediction from Speech : </h4><h4 style="color: red;">POSITIVE </h4>
+                    
 
-
-                  {% elif data.hasPDspeech.Diagnosis == "False" %}
-
+                  {% elif temp.hasPDspeech.Diagnosis == "False" %}
+                   
                         <h4>Prediction from Speech : </h4> <h4 style="color: green;">NEGATIVE </h4>
-
+                     
 
                   {% endif %}
 
-                    <!-- {% if data.hasPDdatscan == True %}
+                    <!-- {% if temp.hasPDdatscan == True %}
                         <img src = "./static/images/positive.jpg" style="border : 2px red dotted "/>
                     {% else %}
                         <img src = "./static/images/negative.jpg" style="border : 2px green dotted "/>
                     {% endif %} -->
                     </center>
                 </div>
-
+                
             </div>
         </div>
         <div class = "row">
@@ -165,7 +165,7 @@
             <div class = "jumbotron" style = "height: 610px; width: 500px;">
               <h2>DatScan Analysis</h2>
               <!-- <img src="./static/images/Datscan/explained.jpg"/> -->
-              <img src= "{{explanationPath}}" />
+              <img src="./static/images/explained.jpeg"/>
             </div>
           </div>
             <div class = "col-md-6">
