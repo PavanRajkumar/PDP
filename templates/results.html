@@ -43,7 +43,7 @@
             var data = google.visualization.arrayToDataTable([
           ['Prediction', 'Probability'],
           ['Positive',   {{ temp.hasPDspeech.probability}}  ],
-          ['Negative',    1- {{ temp.hasPDspeech.probability}}  ],
+          ['Negative',    100- {{ temp.hasPDspeech.probability}}  ],
 
         ]);
 
@@ -83,7 +83,7 @@
                   <a class="nav-link" aria-current="page" href="{{ url_for('form_upload')}}">Predict</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" href="#">Results</a>
+                  <a class="nav-link active" aria-current="page" href="{{ url_for('history')}}">Results</a>
                 </li>
 
               </ul>
@@ -165,7 +165,7 @@
             <div class = "jumbotron" style = "height: 610px; width: 500px;">
               <h2>DatScan Analysis</h2>
               <!-- <img src="./static/images/Datscan/explained.jpg"/> -->
-              <img src="./static/images/explained.jpeg"/>
+              <img src={{temp.datscanExplainPath}}/>
             </div>
           </div>
             <div class = "col-md-6">

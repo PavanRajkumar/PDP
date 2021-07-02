@@ -40,10 +40,10 @@
           // draws it.
           function drawChart() {
 
-            var data = google.visualization.arrayToDataTable([
+        var data = google.visualization.arrayToDataTable([
           ['Prediction', 'Probability'],
           ['Positive',   {{ data.hasPDspeech.probability}}  ],
-          ['Negative',    1- {{ data.hasPDspeech.probability}}  ],
+          ['Negative',    100- {{ data.hasPDspeech.probability}}  ],
 
         ]);
 
@@ -83,7 +83,7 @@
                   <a class="nav-link" aria-current="page" href="{{ url_for('form_upload')}}">Predict</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" href="#">Results</a>
+                  <a class="nav-link active" aria-current="page" href="{{ url_for('history')}}">Results</a>
                 </li>
 
               </ul>
@@ -165,7 +165,7 @@
             <div class = "jumbotron" style = "height: 610px; width: 500px;">
               <h2>DatScan Analysis</h2>
               <!-- <img src="./static/images/Datscan/explained.jpg"/> -->
-              <img src= "{{explanationPath}}" />
+              <img src= {{data.datscanExplainPath}} />
             </div>
           </div>
             <div class = "col-md-6">
