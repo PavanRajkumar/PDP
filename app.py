@@ -43,7 +43,11 @@ def form_upload():
             hasPDdatscan = datscan_predict(file_paths['datscan'])
         else:
             hasPDdatscan = None
-        #datscan_explain(file_paths['datscan'])
+
+        explanationPath = datscan_explain(file_paths['datscan'])
+        print("CHECK THE PAAAAAATTTTTHHHHHH")
+        print(explanationPath)
+        print("CHECK THE PAAAAAATTTTTHHHHHH")
 
         if file_paths.get('speech',None) != None:
             audio = Audio_Controller(file_paths['speech'])
@@ -66,9 +70,9 @@ def form_upload():
             'predictTime': current_time
         }
 
-        # writeToDB(data)
+        #writeToDB(data)
 
-        return render_template('datscan_output.html', data=data)
+        return render_template('datscan_output.html', data = data, explanationPath = explanationPath)
 
     elif request.method == 'GET':
         scans = os.listdir('files/datscan')
