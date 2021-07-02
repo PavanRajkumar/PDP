@@ -33,7 +33,7 @@ def datscan_explain(datscan_sample):
     IMG_SIZE = (224,224)
 
     basename = os.path.basename(datscan_sample)
-    save_path = './files/explanations/' + str(basename)
+    save_path = './static/images/explanations/' + str(basename)
     vgg16 = load_model('./notebooks/spect_trained_final_1.h5')
 
     X = []
@@ -69,4 +69,4 @@ def datscan_explain(datscan_sample):
     plt.imshow(mark_boundaries(temp / 2 + 0.5, mask).astype(np.uint8))
     plt.imsave(save_path,mark_boundaries(temp / 2 + 0.5, mask).astype(np.uint8))
 
-    return
+    return save_path
