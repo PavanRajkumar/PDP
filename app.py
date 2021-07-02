@@ -77,15 +77,16 @@ def form_upload():
             'datscanPath': file_paths['datscan'],
             'hasPDspeech': hasPDspeech,
             'speechPath': file_paths['speech'],
-            'predictTime': current_time
+            'predictTime': current_time,
+            'datscanExplainPath': explanationPath
         }
         print(data)
 
 
-        #writeToDB(data)
+        writeToDB(data)
 
 
-        return render_template('datscan_output.html', data = data, explanationPath = explanationPath)
+        return render_template('datscan_output.html', data = data)
 
     elif request.method == 'GET':
         scans = os.listdir('files/datscan')

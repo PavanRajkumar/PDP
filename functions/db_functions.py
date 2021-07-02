@@ -15,6 +15,7 @@ def readFromDB():
 def readSingleFromDB(id):
     datar=records.find_one({'first': id})
     print(id)
+    print(datar)
     return datar
 
 def countInDB():
