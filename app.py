@@ -5,9 +5,11 @@ from flask import send_from_directory, render_template, jsonify
 from werkzeug.utils import secure_filename
 from functions.datscan_predict import datscan_predict
 from functions.datscan_explain import datscan_explain
-from functions.db_functions import writeToDB
+from functions.db_functions import writeToDB , readFromDB , readSingleFromDB, countInDB
 from speech_diagnosis.src.Audio_Controller import Audio_Controller
 import datetime, pytz
+from uuid import uuid4
+
 
 
 app = Flask(__name__)
@@ -16,33 +18,22 @@ app.config['UPLOAD_FOLDER'] = './files/'
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    prediction = countInDB()
+    return render_template('index.html', prediction=prediction)
 
 
 @app.route('/history')
 def history():
-    return render_template('history.html')
+    details=readFromDB()
+    
+    return render_template('history.html',details = details)
 
-
-@app.route('/uploade_speech', methods = ['GET', 'POST'])
-def upload_speech():
-   if request.method == 'POST':
-      f = request.files['file']
-      f.save(os.path.join(app.config['UPLOAD_FOLDER'], f.filename))
-      n1 = request.form['num1']
-      n2 = request.form['num2']
-      n3 = request.form['num3']
-      n4 = request.form['num4']
-      n5 = request.form['num5']
-      l = [n1,n2,n3,n4,n5]
-      n = np.array(l)
-      print(n)
-      print(f)
-      str1 = ''.join(l)
-      return 'file uploaded successfully' + str1
-   elif request.method == 'GET':
-      return render_template('upload_speech.html')
-
+@app.route('/results', methods=['GET', 'POST'])
+def results():
+      id = request.form['id']
+      temp=readSingleFromDB(id)
+      print(temp)
+      return render_template('results.html',temp = temp)
 
 @app.route('/form_upload', methods=['GET', 'POST'])
 def form_upload():
@@ -62,7 +53,11 @@ def form_upload():
             hasPDdatscan = datscan_predict(file_paths['datscan'])
         else:
             hasPDdatscan = None
-        # datscan_explain(file_path)
+
+        explanationPath = datscan_explain(file_paths['datscan'])
+        print("CHECK THE PAAAAAATTTTTHHHHHH")
+        print(explanationPath)
+        print("CHECK THE PAAAAAATTTTTHHHHHH")
 
         if file_paths.get('speech',None) != None:
             audio = Audio_Controller(file_paths['speech'])
@@ -82,12 +77,16 @@ def form_upload():
             'datscanPath': file_paths['datscan'],
             'hasPDspeech': hasPDspeech,
             'speechPath': file_paths['speech'],
-            'predictTime': current_time
+            'predictTime': current_time,
+            'datscanExplainPath': explanationPath
         }
+        print(data)
 
-        # writeToDB(data)
 
-        return render_template('datscan_output.html', data=data)
+        writeToDB(data)
+
+
+        return render_template('datscan_output.html', data = data)
 
     elif request.method == 'GET':
         scans = os.listdir('files/datscan')
@@ -103,6 +102,7 @@ def get_file_path(request):
         if file_type not in request.files:
             flash('No file part')
             return redirect(request.url)
+
         file = request.files[file_type]
 
         if file.filename == '':
@@ -113,7 +113,7 @@ def get_file_path(request):
         file_path = None
 
         if file:
-            filename = secure_filename(file.filename)
+            filename = make_unique(secure_filename(file.filename))
             print("FILENAME", filename)
             file.save(os.path.join("../PDP/files/{0}/".format(file_type), filename))
             file_path = os.path.join("../PDP/files/{}".format(file_type), filename)
@@ -121,6 +121,11 @@ def get_file_path(request):
         file_paths[file_type] = file_path
 
     return file_paths
+
+#Adds four random characters to the start of the file name
+def make_unique(string):
+    ident = uuid4().__str__()[:4]  
+    return f"{ident}-{string}"
 
 
 if __name__ == '__main__':

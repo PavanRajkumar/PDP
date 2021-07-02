@@ -29,8 +29,11 @@ def datscan_explain(datscan_sample):
     from numpy import asarray
     import cv2
     import math
+    import os.path
     IMG_SIZE = (224,224)
 
+    basename = os.path.basename(datscan_sample)
+    save_path = './static/images/explanations/' + str(basename)
     vgg16 = load_model('./notebooks/spect_trained_final_1.h5')
 
     X = []
@@ -64,6 +67,6 @@ def datscan_explain(datscan_sample):
     # Alert! You need to delete the explained.jpg file everytime you want to run an aexplanation on a new image.
     # Or else you will get a file overwrite error. Need to think of a fix for this.
     plt.imshow(mark_boundaries(temp / 2 + 0.5, mask).astype(np.uint8))
-    plt.imsave("./static/images/Datscan/explained.jpg",mark_boundaries(temp / 2 + 0.5, mask).astype(np.uint8))
+    plt.imsave(save_path,mark_boundaries(temp / 2 + 0.5, mask).astype(np.uint8))
 
-    return
+    return save_path

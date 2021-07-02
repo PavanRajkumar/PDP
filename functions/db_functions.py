@@ -11,3 +11,13 @@ def writeToDB(data):
 def readFromDB():
     data=list(records.find())
     return data
+
+def readSingleFromDB(id):
+    datar=records.find_one({'first': id})
+    print(id)
+    print(datar)
+    return datar
+
+def countInDB():
+    num= records.count_documents({})
+    return num

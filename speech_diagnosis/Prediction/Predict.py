@@ -11,11 +11,11 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 class Predict:
 
     location = {
-        "Scalar": "D:/Projects/Final-Year-Project/PDP/speech_diagnosis/ML_Models/Scalar/scalar.pkl",
-        "NN": {"weights": "D:/Projects/Final-Year-Project/PDP/speech_diagnosis/ML_Models/NN/Speech_nn.h5", "architecture": "D:/Projects/Final-Year-Project/PDP/speech_diagnosis/ML_Models/NN/model_nn.json"},
-        "KNN": {"model": "D:/Projects/Final-Year-Project/PDP/speech_diagnosis/ML_Models/KNN/KNN_model.pkl"},
-        "RF": {"model": "D:/Projects/Final-Year-Project/PDP/speech_diagnosis/ML_Models/RF/RF_model.pkl"},
-        "SVC": {"model": "D:/Projects/Final-Year-Project/PDP/speech_diagnosis/ML_Models/SVC/SVC_model.pkl"}
+        "Scalar": os.path.join("../PDP/speech_diagnosis/ML_Models/Scalar/scalar.pkl"),
+        "NN": {"weights": os.path.join("../PDP/speech_diagnosis/ML_Models/NN/Speech_nn.h5"), "architecture": os.path.join("../PDP/speech_diagnosis/ML_Models/NN/model_nn.json")},
+        "KNN": {"model": os.path.join("../PDP/speech_diagnosis/ML_Models/KNN/KNN_model.pkl")},
+        "RF": {"model": os.path.join("../PDP/speech_diagnosis/ML_Models/RF/RF_model.pkl")},
+        "SVC": {"model": os.path.join("../PDP/speech_diagnosis/ML_Models/SVC/SVC_model.pkl")}
     }
 
     def __init__(self,model_name="NN"):
@@ -109,7 +109,7 @@ class Predict:
 
         diagnosis = (1==predictions_rounded)
 
-        return {"Diagnosis": diagnosis, "probability": float("{0:.2f}".format(prediction*100))}
+        return {"Diagnosis": str(diagnosis), "probability": float("{0:.2f}".format(prediction*100))}
 
 
     def get_PR_curve(self):
