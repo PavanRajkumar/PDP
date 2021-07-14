@@ -5,7 +5,7 @@ from flask import send_from_directory, render_template, jsonify
 from werkzeug.utils import secure_filename
 from functions.datscan_predict import datscan_predict
 from functions.datscan_explain import datscan_explain
-from functions.db_functions import writeToDB , readFromDB , readSingleFromDB, countInDB
+from functions.db_functions import countGender, writeToDB , readFromDB , readSingleFromDB, countInDB
 from speech_diagnosis.src.Audio_Controller import Audio_Controller
 import datetime, pytz
 from uuid import uuid4
@@ -19,7 +19,9 @@ app.config['UPLOAD_FOLDER'] = './files/'
 @app.route('/')
 def index():
     prediction = countInDB()
-    return render_template('index.html', prediction=prediction)
+    gender = countGender()
+    print (gender)
+    return render_template('index.html', prediction=prediction , gender=gender)
 
 
 @app.route('/history')
