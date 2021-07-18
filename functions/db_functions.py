@@ -21,3 +21,12 @@ def readSingleFromDB(id):
 def countInDB():
     num= records.count_documents({})
     return num
+
+def countGender():
+    gender =[]
+    gender.append(['Male',len(list(records.find({ 'gender': 'Male' })))])
+    gender.append(['Female',len(list(records.find({ 'gender': 'Female' })))])
+    print(records.find())
+    # print(records.find({ gender: 'Male' }).count())
+    # print(records.find({ gender: 'Female' }).count())
+    return gender
