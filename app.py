@@ -51,13 +51,14 @@ def form_upload():
         file_paths = get_file_path(request=request)
         print("FILE_PATHS",file_paths)
 
-
+        explanationPath = None
         if file_paths['datscan'] != None:
             hasPDdatscan = datscan_predict(file_paths['datscan'])
+            explanationPath = datscan_explain(file_paths['datscan'])
+
         else:
             hasPDdatscan = None
 
-        explanationPath = datscan_explain(file_paths['datscan'])
         print("CHECK THE PAAAAAATTTTTHHHHHH")
         print(explanationPath)
         print("CHECK THE PAAAAAATTTTTHHHHHH")
@@ -71,6 +72,7 @@ def form_upload():
             hasPDspeech = audio.predict_PD_diagnosis(model_name="NN")
         else:
             hasPDspeech = None
+
 
         current_time = datetime.datetime.now(pytz.timezone('Asia/Kolkata'))
 
