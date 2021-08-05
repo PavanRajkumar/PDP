@@ -27,7 +27,7 @@ def index():
 @app.route('/history')
 def history():
     details=readFromDB()
-    
+
     return render_template('history.html',details = details)
 
 @app.route('/results', methods=['GET', 'POST'])
@@ -41,6 +41,7 @@ def results():
 def form_upload():
 
     if request.method == "POST":
+        print("Hello")
         first = request.form['FirstName']
         last = request.form['LastName']
         age = request.form['age']
@@ -50,23 +51,28 @@ def form_upload():
         file_paths = get_file_path(request=request)
         print("FILE_PATHS",file_paths)
 
-
+        explanationPath = None
         if file_paths['datscan'] != None:
             hasPDdatscan = datscan_predict(file_paths['datscan'])
+            explanationPath = datscan_explain(file_paths['datscan'])
+
         else:
             hasPDdatscan = None
 
-        explanationPath = datscan_explain(file_paths['datscan'])
         print("CHECK THE PAAAAAATTTTTHHHHHH")
         print(explanationPath)
         print("CHECK THE PAAAAAATTTTTHHHHHH")
 
         if file_paths.get('speech',None) != None:
             audio = Audio_Controller(file_paths['speech'])
-            audio.process_audio()
-            hasPDspeech = audio.predict_PD_diagnosis(model_name="RF")
+            if file_paths['speech'].endswith('.txt') or file_paths['speech'].endswith('.csv'):
+                audio.process_extracted_params()
+            else:
+                audio.process_audio()
+            hasPDspeech = audio.predict_PD_diagnosis(model_name="NN")
         else:
             hasPDspeech = None
+
 
         current_time = datetime.datetime.now(pytz.timezone('Asia/Kolkata'))
 
@@ -117,8 +123,9 @@ def get_file_path(request):
         if file:
             filename = make_unique(secure_filename(file.filename))
             print("FILENAME", filename)
-            file.save(os.path.join("../PDP/files/{0}/".format(file_type), filename))
-            file_path = os.path.join("../PDP/files/{}".format(file_type), filename)
+            print(os.path.join("../Final-Year-Project/files/{0}/".format(file_type), filename))
+            file.save(os.path.join("../Final-Year-Project/files/{0}/".format(file_type), filename))
+            file_path = os.path.join("../Final-Year-Project/files/{}".format(file_type), filename)
 
         file_paths[file_type] = file_path
 
@@ -126,7 +133,7 @@ def get_file_path(request):
 
 #Adds four random characters to the start of the file name
 def make_unique(string):
-    ident = uuid4().__str__()[:4]  
+    ident = uuid4().__str__()[:4]
     return f"{ident}-{string}"
 
 

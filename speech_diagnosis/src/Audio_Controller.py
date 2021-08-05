@@ -1,5 +1,6 @@
 from speech_diagnosis.Audio_Processing.feature_extraction import Feature_extraction
 from speech_diagnosis.Prediction.Predict import Predict
+from numpy import genfromtxt
 
 class Audio_Controller:
 
@@ -16,7 +17,12 @@ class Audio_Controller:
 
         self.features_extraction = Feature_extraction(self.audio_file_location)
         self.features = self.features_extraction.get_features_as_numpy()
+        print(self.features)
 
+
+    def process_extracted_params(self):
+        self.features = genfromtxt(self.audio_file_location, delimiter=',').reshape(1, 26)
+        print(self.features)
 
     def predict_PD_diagnosis(self, model_name="NN"):
 

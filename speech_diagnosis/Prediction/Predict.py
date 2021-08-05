@@ -4,18 +4,18 @@ import json
 import numpy as np
 import pickle
 import os
-from sklearn.preprocessing import MinMaxScaler
+#from sklearn.preprocessing import MinMaxScaler
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
 
 class Predict:
 
     location = {
-        "Scalar": os.path.join("../PDP/speech_diagnosis/ML_Models/Scalar/scalar.pkl"),
-        "NN": {"weights": os.path.join("../PDP/speech_diagnosis/ML_Models/NN/Speech_nn.h5"), "architecture": os.path.join("../PDP/speech_diagnosis/ML_Models/NN/model_nn.json")},
-        "KNN": {"model": os.path.join("../PDP/speech_diagnosis/ML_Models/KNN/KNN_model.pkl")},
-        "RF": {"model": os.path.join("../PDP/speech_diagnosis/ML_Models/RF/RF_model.pkl")},
-        "SVC": {"model": os.path.join("../PDP/speech_diagnosis/ML_Models/SVC/SVC_model.pkl")}
+        "Scalar": os.path.join("../Final-Year-Project/speech_diagnosis/ML_Models/Scalar/scalar.pkl"),
+        "NN": {"weights": os.path.join("../Final-Year-Project/speech_diagnosis/ML_Models/NN/Speech_nn.h5"), "architecture": os.path.join("../Final-Year-Project/speech_diagnosis/ML_Models/NN/model_nn.json")},
+        "KNN": {"model": os.path.join("../Final-Year-Project/speech_diagnosis/ML_Models/KNN/KNN_model.pkl")},
+        "RF": {"model": os.path.join("../Final-Year-Project/speech_diagnosis/ML_Models/RF/RF_model.pkl")},
+        "SVC": {"model": os.path.join("../Final-Year-Project/speech_diagnosis/ML_Models/SVC/SVC_model.pkl")}
     }
 
     def __init__(self,model_name="NN"):
