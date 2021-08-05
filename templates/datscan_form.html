@@ -38,7 +38,7 @@
       document.getElementById("main_search_form").submit();
 
  
-      document.getElementById("main_content").innerHTML = "<div class = \"container\"><br /><br /><div class = \"jumbotron\"><center><lottie-player src=\"https://assets7.lottiefiles.com/packages/lf20_8hddy41z.json\"  background=\"transparent\"  speed=\"1\"  style=\"width: 300px; height: 300px;\"  loop  autoplay></lottie-player><h3>Please Wait .. The Brain Scans and Speech recording is being processed , the result will come up shortly </h3></center><div><div>";}
+      document.getElementById("main_content").innerHTML = "<div class = \"container\"><br /><br /><div class = \"jumbotron\" style=\"background-color: #8dd6d0\"><center><lottie-player src=\"https://assets7.lottiefiles.com/packages/lf20_8hddy41z.json\"  background=\"transparent\"  speed=\"1\"  style=\"width: 300px; height: 300px;\"  loop  autoplay></lottie-player><h3>Please Wait .. The Brain Scans and Speech recording is being processed , the result will come up shortly </h3></center><div><div>";}
 </script>
 
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -76,8 +76,8 @@
     <div>
         <br/>
         <br/>
-        <h1>Enter Details</h1></div>
-    <div class = "jumbotron" >
+        <h1 class="text-center">Enter Patient Details</h1></div>
+    <div class = "jumbotron" style="background-color: #8dd6d0">
         <form action="{{ url_for('form_upload') }}" method="post"  enctype=multipart/form-data id = "main_search_form" onsubmit="preloader()">
             <div class = "row">
                 <div class = "col-md-6">
@@ -128,7 +128,7 @@
   			    </div>
             </div>
             <center>
-            <input class="btn btn-primary btn-lg" type=submit value="Predict">
+            <input class="btn btn-secondary btn-lg" type=submit value="Predict">
             </center>
         </form>
     </div>
@@ -136,7 +136,7 @@
 </div>
 <footer class="container">
     <p class="float-end"><a href="#">Back to top</a></p>
-    <p>&copy; 2017–2021 Back Bench Kool, Inc. &middot; </p>
+    <p>&copy; 2017–2021 ML-014 : Early Detection of Parkinson's Disease using various health Biomarkers &middot; </p>
   </footer>
 </main>
 </body>
